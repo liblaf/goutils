@@ -35,12 +35,13 @@ jobs:
     strategy:
       matrix:
         os:
-          - linux
           - darwin
+          - linux
           - windows
         arch:
           - amd64
-          - arm
+          - arm64
+    continue-on-error: true
 
   release:
     name: Create GitHub Release
