@@ -1,11 +1,23 @@
-NAME       := goutils
-BIN        := bin
-COMPLETION := $(ZSH_CUSTOM)/plugins/completions/_$(NAME)
-GO         := go
-GOBIN      := $(HOME)/.local/bin
+NAME         := goutils
+BIN          := $(CURDIR)/bin
+PROJECT_PATH := $(CURDIR)/cmd/$(NAME)
+
+GO           := go
+GOARCH       ?= $(shell go env GOARCH)
+GOBIN        := $(HOME)/.local/bin
+GOOS         ?= $(shell go env GOOS)
+
+ifeq ($(GOOS), windows)
+  EXT := .exe
+else
+  EXT :=
+endif
+
+COMPLETION   := $(ZSH_CUSTOM)/plugins/completions/_$(NAME)
+TARGET       := $(BIN)/$(NAME)-$(GOOS)-$(GOARCH)$(EXT)
 
 .PHONY: build
-build: $(BIN)/$(NAME)
+build: $(TARGET)
 
 .PHONY: install
 install: $(GOBIN)/$(NAME) completion
@@ -22,11 +34,11 @@ clean:
 $(BIN):
 	mkdir -p $(BIN)
 
-$(BIN)/$(NAME): | $(BIN)
-	go build -o $(BIN) ./...
+$(TARGET): | $(BIN)
+	cd cmd/goutils && $(GO) build -o $(TARGET)
 
 $(GOBIN)/$(NAME):
-	GOBIN=$(GOBIN) $(GO) install ./...
+	cd cmd/goutils && GOBIN=$(GOBIN) $(GO) install
 
-$(COMPLETION): $(BIN)/$(NAME)
+$(COMPLETION): $(GOBIN)/$(NAME)
 	$< completion zsh > $(COMPLETION)

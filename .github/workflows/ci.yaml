@@ -14,34 +14,33 @@ permissions:
 jobs:
   build:
     name: Build Executable
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - id: go
-        name: Setup Go Environment
+      - name: Setup Go Environment
         uses: actions/setup-go@v3
         with:
           go-version-file: go.mod
       - name: Build Executable
         run: make build
-      - if: runner.os != 'Windows'
-        name: Rename Build Artifact
-        run: mv bin/* bin/${{ github.event.repository.name }}-${{ runner.os }}-${{ runner.arch }}
-      - if: runner.os == 'Windows'
-        name: Rename Build Artifact
-        run: mv bin/* bin/${{ github.event.repository.name }}-${{ runner.os }}-${{ runner.arch }}.exe
+        env:
+          GOOS: ${{ matrix.os }}
+          GOARCH: ${{ matrix.arch }}
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ runner.os }}-${{ runner.arch }}
+          name: ${{ github.event.repository.name }}-${{ matrix.os }}-${{ matrix.arch }}
           path: bin/*
     strategy:
       matrix:
         os:
-          - macos-latest
-          - ubuntu-latest
-          - windows-latest
+          - linux
+          - darwin
+          - windows
+        arch:
+          - amd64
+          - arm
 
   release:
     name: Create GitHub Release
