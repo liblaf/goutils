@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.2.0](https://github.com/liblaf/goutils/compare/v0.1.1...v0.2.0) (2023-02-12)
+
+
+### Features
+
+* goutils sort awesome ([92c7247](https://github.com/liblaf/goutils/commit/92c7247af28e615a4a3a1ae987c5cc5debc8dc7b))
+
+
+### Bug Fixes
+
+* better shell completion ([7c911a4](https://github.com/liblaf/goutils/commit/7c911a4e5b61c6ea241d9adda0c1c905645017e3))
+
 ## [0.1.1](https://github.com/liblaf/goutils/compare/v0.1.0...v0.1.1) (2023-02-12)
 
 
