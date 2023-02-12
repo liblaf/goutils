@@ -4,6 +4,7 @@ import (
 	"github.com/liblaf/goutils/cmd/goutils/assets"
 	"github.com/liblaf/goutils/cmd/goutils/clean"
 	"github.com/liblaf/goutils/cmd/goutils/keys"
+	"github.com/liblaf/goutils/cmd/goutils/sort"
 	"github.com/liblaf/goutils/cmd/goutils/update"
 	_errors "github.com/liblaf/goutils/pkg/errors"
 	"github.com/liblaf/goutils/pkg/interactive/confirm"
@@ -23,7 +24,8 @@ func init() {
 	RootCmd.PersistentFlags().BoolP("yes", "y", false, "")
 
 	RootCmd.AddCommand(assets.RootCmd)
-	RootCmd.AddCommand(keys.RootCmd)
 	RootCmd.AddCommand(clean.RootCmd)
+	RootCmd.AddCommand(keys.RootCmd)
+	RootCmd.AddCommand(sort.RootCmd)
 	RootCmd.AddCommand(update.RootCmd)
 }
