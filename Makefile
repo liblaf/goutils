@@ -17,13 +17,13 @@ COMPLETION   := $(ZSH_CUSTOM)/plugins/completions/_$(NAME)
 TARGET       := $(BIN)/$(NAME)-$(GOOS)-$(GOARCH)$(EXT)
 
 .PHONY: build
-build: $(TARGET)
+build: | $(BIN)
+	cd $(PROJECT_PATH) && GOOS=$(GOOS) GOARCH=$(GOARCH) $(GO) build -o $(TARGET)
 
 .PHONY: install
-install: $(GOBIN)/$(NAME) completion
-
-.PHONY: completion
-completion: $(COMPLETION)
+install:
+	cd $(PROJECT_PATH) && GOBIN=$(GOBIN) $(GO) install
+	$(GOBIN)/$(NAME) completion zsh > $(COMPLETION)
 
 .PHONY: clean
 clean:
@@ -33,12 +33,3 @@ clean:
 
 $(BIN):
 	mkdir -p $(BIN)
-
-$(TARGET): | $(BIN)
-	cd cmd/goutils && $(GO) build -o $(TARGET)
-
-$(GOBIN)/$(NAME):
-	cd cmd/goutils && GOBIN=$(GOBIN) $(GO) install
-
-$(COMPLETION): $(GOBIN)/$(NAME)
-	$< completion zsh > $(COMPLETION)
