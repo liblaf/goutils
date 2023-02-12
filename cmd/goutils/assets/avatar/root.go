@@ -40,4 +40,5 @@ var RootCmd = &cobra.Command{
 
 func init() {
 	RootCmd.PersistentFlags().StringP("output", "o", "avatar", "")
+	RootCmd.MarkPersistentFlagDirname("output")
 }

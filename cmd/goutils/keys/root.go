@@ -12,6 +12,7 @@ var RootCmd = &cobra.Command{
 
 func init() {
 	RootCmd.PersistentFlags().StringP("path", "p", "keys", "")
+	RootCmd.MarkPersistentFlagDirname("path")
 
 	RootCmd.AddCommand(export.RootCmd)
 	RootCmd.AddCommand(_import.RootCmd)

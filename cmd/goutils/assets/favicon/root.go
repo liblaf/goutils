@@ -61,4 +61,5 @@ var RootCmd = &cobra.Command{
 func init() {
 	RootCmd.PersistentFlags().StringP("color", "c", "#48BEF3", "")
 	RootCmd.PersistentFlags().StringP("output", "o", "favicon", "")
+	RootCmd.MarkPersistentFlagDirname("output")
 }
