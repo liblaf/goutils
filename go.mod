@@ -7,7 +7,7 @@ require (
 	github.com/pterm/pterm v0.12.54
 	github.com/sirupsen/logrus v1.9.0
 	github.com/spf13/cobra v1.6.1
-	github.com/vbauerster/mpb/v8 v8.1.6
+	github.com/vbauerster/mpb/v8 v8.2.0
 	golang.org/x/text v0.7.0
 	gopkg.in/yaml.v3 v3.0.1
 	mvdan.cc/sh/v3 v3.6.0
